@@ -1,0 +1,7 @@
+- appwiz.cpl 程序和功能 卸载程序
+- control 控制面板
+- notepad 记事本
+- calc 计算器
+- Rstrui 系统还原
+- charmap 字符映射
+- services.msc 查看服务
