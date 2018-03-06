@@ -38,13 +38,6 @@ public class TicketRunnale implements Runnable {
     public static void main(String[] args) {
 
         TicketRunnale mt=new TicketRunnale();
-        ThreadFactory threadFactory = new ThreadFactory() {
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread thread = new Thread("一号窗口");
-                return thread;
-            }
-        };
         ExecutorService executorService = newFixedThreadPool(15, Executors.defaultThreadFactory());
         executorService.execute(mt);
         executorService.execute(mt);
