@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadFactory;
  *
  */
 public class TicketRunnale implements Runnable {
-    private  int ticket =10;
+    private   int ticket =100;
 
     @Override
     public void run() {
@@ -38,9 +38,16 @@ public class TicketRunnale implements Runnable {
     public static void main(String[] args) {
 
         TicketRunnale mt=new TicketRunnale();
-        ExecutorService executorService = newFixedThreadPool(15, Executors.defaultThreadFactory());
-        executorService.execute(mt);
-        executorService.execute(mt);
+        /**
+         * 创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，
+         * 如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。
+         */
+        ExecutorService executorService = Executors.newFixedThreadPool(15, Executors.defaultThreadFactory());
+        for( int i = 0; i < 100; i++) {
+            executorService.execute(mt);
+        }
+        //executorService.execute(mt);
+
 //        Thread t1 =new Thread(mt,"一号窗口");
 //        Thread t2 =new Thread(mt,"二号窗口");
 //        t1.start();
@@ -50,16 +57,7 @@ public class TicketRunnale implements Runnable {
 
     }
 
-    /**
-     * 创建固定大小的线程池。每次提交一个任务就创建一个线程，直到线程达到线程池的最大大小。线程池的大小一旦达到最大值就会保持不变，
-     * 如果某个线程因为执行异常而结束，那么线程池会补充一个新线程。
-     * @param nThreads
-     * @return
-     */
-    public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory) {
 
-        return Executors.newFixedThreadPool(nThreads, threadFactory);
-    }
 
 }
 
