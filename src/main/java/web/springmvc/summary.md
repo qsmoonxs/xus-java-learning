@@ -48,7 +48,12 @@ model：pojo action service  dao。。。（明天画一下mvc图）
 #### 为啥要有适配器去干活：
 ___
 #### 前端控制器怎么进行渲染:
+___
 
+#### 打包后怎么没在tomcat的webapp下找到他
+__
+
+#### servlet的url-pattern
 
 
 

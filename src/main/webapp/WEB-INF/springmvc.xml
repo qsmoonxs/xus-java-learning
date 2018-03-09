@@ -1,0 +1,30 @@
+<!-- 配置处理器映射器 处理器适配器 视图解析器 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+    <!--处理器适配器
+    所有的处理器适配器都实现HandlerAdapter
+    public boolean supports(Object handler) {
+        return handler instanceof Controller;
+    }
+    此适配器能处理实现Controller接口的Handler
+    -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <!-- handler -->
+    <bean name="/queryItems.action" class="web.springmvc.controller.ItemsController"/>
+
+    <!-- 映射器
+    将bean的name作为url进行查找 需要在handler指定beanname就是url
+    -->
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- 视图解析器
+    解析jsp视图，默认使用jstl标签 classpath下得有jstl的包
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+
+
+</beans>
