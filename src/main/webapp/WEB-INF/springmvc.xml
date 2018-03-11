@@ -1,8 +1,21 @@
 <!-- 配置处理器映射器 处理器适配器 视图解析器 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:context="http://www.springframework.org/schema/context"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd-->
+                    <!--http://www.springframework.org/schema/tx-->
+                    <!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd-->
+                    <!--http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">-->
+
+    <!--  如果不配至这些，那会采用dispaerservlet.properties的配置-->
 
     <!--处理器适配器
     所有的处理器适配器都实现HandlerAdapter
@@ -12,14 +25,41 @@
     此适配器能处理实现Controller接口的Handler
     -->
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+    <!-- 另一个适配器 要求编写的handler实现HttpRequestHandler-->
+    <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+    <!--注解的适配器 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
 
     <!-- handler -->
-    <bean name="/queryItems.action" class="web.springmvc.controller.ItemsController"/>
+    <bean id="ItemsController" name="/queryItems.action" class="web.springmvc.controller.ItemsController"/>
+    <bean id="ItemsController2"  name="/queryItems5.action" class="web.springmvc.controller.ItemsController2"/>
+    <!-- 对于注解的handler可以单个扫描 实际开发中建议用组件扫描-->
+    <!--<bean class="web.springmvc.controller.ItemsController3"/>-->
+    <!-- 可以扫描controller service repository-->
+    <context:component-scan base-package="web.springmvc.controller"/>
 
     <!-- 映射器
     将bean的name作为url进行查找 需要在handler指定beanname就是url
     -->
     <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <!--另一种映射器 可以共存 前端控制器自己会判断 -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/queryItems1.action">ItemsController</prop>
+                <prop key="/queryItems2.action">ItemsController</prop>
+                <prop key="/queryItems3.action">ItemsController2</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 注解的映射器 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
+    <!-- 使用mvc：annotation-driven代替上边配置的注解映射器和注解适配器
+    还默认加载很多参数绑定方法比如json转换器等 -->
+    <!--<mvc:annotation-driven/>-->
+
 
     <!-- 视图解析器
     解析jsp视图，默认使用jstl标签 classpath下得有jstl的包

@@ -44,6 +44,30 @@ model：pojo action service  dao。。。（明天画一下mvc图）
 10. 前端控制器进行视图渲染：模型数据填充到request域（渲染是什么干的，request域是啥）
 11. 前端控制器向用户响应结果
 
+### DispatcherServlet分析：
+1. 调用doDispatch
+2. 前端控制器调用处理器映射器 
+
+```java
+mappedHandler = this.getHandler(processedRequest);
+HandlerExecutionChain getHandler()
+
+```
+
+3. 调用处理器适配器执行Handler得到mv
+```java
+mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
+```
+
+4. 视图渲染，将model的数据填充到request域
+```java
+/** 得到视图 **/
+view = this.resolveViewName(mv.getViewName(), mv.getModelInternal(), locale, request);
+/** 渲染方法 **/
+ view.render(mv.getModelInternal(), request, response);
+ /**填充数据 **/
+ exposeModelAsRequestAttributes(Map<String, Object> model, HttpServletRequest request)
+```
 ### Problem
 #### 为啥要有适配器去干活：
 ___
@@ -54,6 +78,7 @@ ___
 __
 
 #### servlet的url-pattern
-
+___
+#### queryItemsAnnotation为什么不用写成queryItemsAnnotation.action 前端控制器的urlpattern是*.action，实际访问的时候一定要加上.action
 
 
