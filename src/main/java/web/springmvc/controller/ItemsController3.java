@@ -1,6 +1,10 @@
 package web.springmvc.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import web.springmvc.model.Items;
@@ -17,8 +21,10 @@ import java.util.List;
 @Controller
 public class ItemsController3 {
 
-    @RequestMapping("/queryItemsAnnotation")
-    public ModelAndView queryItems() {
+    @RequestMapping(path = "{bookId}/queryItemsAnnotation")
+    public ModelAndView queryItems(@RequestHeader(name = "Host") String Host, @MatrixVariable(value = "a",pathVar = "bookId") int q1) {
+        System.out.println(Host);
+        System.out.println(q1);
         List<Items> itemsList = new ArrayList<>();
         //向list中填充静态数据
         Items items_1 = new Items();
@@ -36,7 +42,9 @@ public class ItemsController3 {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("itemsList",itemsList);
-        modelAndView.setViewName("/WEB-INF/jsp/items/itemsList.jsp");
+        modelAndView.setViewName("items/itemsList");
         return modelAndView;
     }
+
+
 }
