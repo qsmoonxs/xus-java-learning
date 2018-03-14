@@ -2,14 +2,12 @@ package web.springmvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import web.springmvc.model.Items;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +19,9 @@ import java.util.List;
 @Controller
 public class ItemsController3 {
 
-    @RequestMapping(path = "{bookId}/queryItemsAnnotation")
-    public ModelAndView queryItems(@RequestHeader(name = "Host") String Host, @MatrixVariable(value = "a",pathVar = "bookId") int q1) {
-        System.out.println(Host);
-        System.out.println(q1);
+    @RequestMapping(path = "/queryItemsAnnotation")
+    public ModelAndView queryItems(@RequestHeader(name = "Host") String host, HttpServletRequest request) {
+        System.out.println(host);
         List<Items> itemsList = new ArrayList<>();
         //向list中填充静态数据
         Items items_1 = new Items();
