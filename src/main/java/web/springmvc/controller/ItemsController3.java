@@ -1,5 +1,6 @@
 package web.springmvc.controller;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,26 @@ public class ItemsController3 {
         modelAndView.addObject("itemsList",itemsList);
         modelAndView.setViewName("items/itemsList");
         return modelAndView;
+    }
+
+    /**
+     * 得用post
+     * @param requestBody
+     * @return
+     */
+    @RequestMapping(value = "/handle41")
+    public String handle41(@RequestBody String requestBody){
+        System.out.println(requestBody);
+        return "items/itemsList";
+    }
+
+    @RequestMapping(value = "/handle42")
+    public String handler43(HttpEntity<String> httpEntity) {
+        /** 使用StringHttpMessageConverter将请求报文体和报文头的信息绑定到httpEntity中**/
+        Long contentLen = httpEntity.getHeaders().getContentLength();
+        System.out.println(httpEntity.getBody());
+        return "items/itemsList";
+
     }
 
 

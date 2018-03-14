@@ -68,6 +68,28 @@ view = this.resolveViewName(mv.getViewName(), mv.getModelInternal(), locale, req
  /**填充数据 **/
  exposeModelAsRequestAttributes(Map<String, Object> model, HttpServletRequest request)
 ```
+
+### 参数绑定转化：
+1. HttpMessageConverter 由 RequestMappingHandlerAdapter （注解的那个适配器）使用 将请求转为对象 或者 将对象转换为相应信息
+   1. Boolean canRead
+   2. Boolean canWrirte
+   3. List<MediaType> getSupportedMediaTypes
+   4. T read
+   5. void Write
+   
+   在适配器中可以注册转化器 默认的是下面四个
+   StringHttpMessageConverter
+   ByteHttpMessageConverter
+   SourceHttpMessageConverter
+   AllEncompassingFormHttpMessageConverter
+   
+   如何使用
+   如果标注@requestBody 那么就是查找把请求转换为对象的那个转换器
+   如果标注@responsebodu 那么就是查找把对象转换为相应信息的那个转化器
+   spring首先根据请求头或者响应头的Accept属性选择匹配的HttpMessageConverter 然后根据参数类型或者泛型类型过滤
+   
+2. DataBinder
+   在ConversionService中进行数据类型转化 数据格式化 将servletquest中的消息填充到入参对象中 conversionservice可以在xml中注册 应该也有默认的
 ### Problem
 #### 为啥要有适配器去干活：
 ___
@@ -84,3 +106,8 @@ ___
 
 #### springmvc的参数解析器
 
+___
+####  将请求信息转化绑定到入参中？
+1：HttpMessageConverterV
+2：DataBind中ConversionService？
+3：@requestparam又是咋回事
