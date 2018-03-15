@@ -3,9 +3,11 @@ package web.springmvc.controller;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import web.springmvc.model.Items;
+import web.springmvc.model.User;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
@@ -46,11 +48,18 @@ public class ItemsController3 {
 
     /**
      * 得用post
+     * 用x-www-form-urlencode格式确实可以被FormHttpMessageConverter解析，但参数类型必须是MultiValueMap或者子类 不然解析会失败，
      * @param requestBody
      * @return
      */
     @RequestMapping(value = "/handle41")
-    public String handle41(@RequestBody String requestBody){
+    public String handle41(@RequestBody User requestBody){
+        System.out.println(requestBody);
+        return "items/itemsList";
+    }
+
+    @RequestMapping(value = "/handle43")
+    public String handle41(@RequestBody LinkedMultiValueMap<String, List<String>> requestBody){
         System.out.println(requestBody);
         return "items/itemsList";
     }

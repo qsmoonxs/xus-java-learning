@@ -58,7 +58,12 @@
 
     <!-- 使用mvc：annotation-driven代替上边配置的注解映射器和注解适配器
     还默认加载很多参数绑定方法比如json转换器等 -->
-    <!--<mvc:annotation-driven/>-->
+    <mvc:annotation-driven>
+
+        <mvc:argument-resolvers>
+            <bean></bean>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
 
 
     <!-- 视图解析器

@@ -1,5 +1,8 @@
 package web.springmvc.model;
 
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
 import java.util.Date;
 
 /**
@@ -13,6 +16,8 @@ public class User {
     private String sex;// 性别
     private Date birthday;// 生日
     private String address;// 地址
+
+
 
     public int getId() {
         return id;
