@@ -23,7 +23,7 @@ springmvc是spring框架一个模块，一个基于mvc的web框架
 
 ### mvc在bs下的应用：
 设计模式
-model：pojo action service  dao。。。（明天画一下mvc图）
+model：pojo action service  dao。。。
 
 ### springmvc框架原理：
 - 控制器对应 前段控制器：DispatchServlet
@@ -70,7 +70,13 @@ view = this.resolveViewName(mv.getViewName(), mv.getModelInternal(), locale, req
 ```
 
 ### 参数绑定转化：
-1. HttpMessageConverter 由 RequestMappingHandlerAdapter （注解的那个适配器）使用 将请求转为对象 或者 将对象转换为相应信息
+
+1. 在适配器中有一些ArgumentResovlers
+`private List<HandlerMethodArgumentResolver> getDefaultArgumentResolvers`
+
+2.  RequestResponseBodyMethodProcessor，RequestPartMethodArgumentResolver，HttpEntityMethodProcessor这三个解析器会用到HttpMessageServlet(@requestbody,@responsebody)
+
+3. HttpMessageConverter 由 RequestMappingHandlerAdapter （注解的那个适配器）使用 将请求转为对象 或者 将对象转换为相应信息
    1. Boolean canRead
    2. Boolean canWrirte
    3. List<MediaType> getSupportedMediaTypes
@@ -88,10 +94,10 @@ view = this.resolveViewName(mv.getViewName(), mv.getModelInternal(), locale, req
    如果标注@responsebodu 那么就是查找把对象转换为相应信息的那个转化器
    spring首先根据请求头或者响应头的Accept属性选择匹配的HttpMessageConverter 然后根据参数类型或者泛型类型过滤
    
-2. DataBinder
+4. DataBinder
    在ConversionService中进行数据类型转化 数据格式化 将servletquest中的消息填充到入参对象中 conversionservice可以在xml中注册 应该也有默认的
+
 ### Problem
-#### 为啥要有适配器去干活：
 ___
 #### 前端控制器怎么进行渲染:
 ___
@@ -104,10 +110,5 @@ ___
 #### queryItemsAnnotation为什么不用写成queryItemsAnnotation.action 前端控制器的urlpattern是*.action，实际访问的时候一定要加上.action
 ___
 
-#### springmvc的参数解析器
 
-___
-####  将请求信息转化绑定到入参中？
-1：HttpMessageConverterV
-2：DataBind中ConversionService？
-3：@requestparam又是咋回事
+
