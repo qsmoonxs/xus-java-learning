@@ -24,15 +24,15 @@
     }
     此适配器能处理实现Controller接口的Handler
     -->
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+    <!--<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
     <!-- 另一个适配器 要求编写的handler实现HttpRequestHandler-->
-    <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+    <!--<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>-->
     <!--注解的适配器 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
 
-    <!-- handler -->
-    <bean id="ItemsController" name="/queryItems.action" class="web.springmvc.controller.ItemsController"/>
-    <bean id="ItemsController2"  name="/queryItems5.action" class="web.springmvc.controller.ItemsController2"/>
+    <!--&lt;!&ndash; handler &ndash;&gt;-->
+    <!--<bean id="ItemsController" name="/queryItems.action" class="web.springmvc.controller.ItemsController"/>-->
+    <!--<bean id="ItemsController2"  name="/queryItems5.action" class="web.springmvc.controller.ItemsController2"/>-->
     <!-- 对于注解的handler可以单个扫描 实际开发中建议用组件扫描-->
     <!--<bean class="web.springmvc.controller.ItemsController3"/>-->
     <!-- 可以扫描controller service repository-->
@@ -41,24 +41,30 @@
     <!-- 映射器
     将bean的name作为url进行查找 需要在handler指定beanname就是url
     -->
-    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
     <!--另一种映射器 可以共存 前端控制器自己会判断 -->
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="/queryItems1.action">ItemsController</prop>
-                <prop key="/queryItems2.action">ItemsController</prop>
-                <prop key="/queryItems3.action">ItemsController2</prop>
-            </props>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+        <!--<property name="mappings">-->
+            <!--<props>-->
+                <!--<prop key="/queryItems1.action">ItemsController</prop>-->
+                <!--<prop key="/queryItems2.action">ItemsController</prop>-->
+                <!--<prop key="/queryItems3.action">ItemsController2</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!-- 注解的映射器 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
 
     <!-- 使用mvc：annotation-driven代替上边配置的注解映射器和注解适配器
     还默认加载很多参数绑定方法比如json转换器等 -->
     <!--<mvc:annotation-driven/>-->
+
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="web.springmvc.ArgumentResolver.MyArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
 
 
     <!-- 视图解析器
