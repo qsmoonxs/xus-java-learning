@@ -13,7 +13,7 @@ package base.string;
 public class test {
 
     /**
-     * StringBuffer类(或者StringBuilder)和String一样，也用来代表字符串，
+     * StringBuffer类(或者StringBuilder 线程安全)和String一样，也用来代表字符串，
      * 只是由于StringBuffer的内部实现方式和String不同，所以StringBuffer在进行字符串处理时，不生成新的对象，在内存使用上要优于String类。
      */
     public static void main(String[] args) {
