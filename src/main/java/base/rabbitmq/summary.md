@@ -21,3 +21,11 @@
 ___
 
 ### springboot中使用rabbitmq
+-
+``` java
+Map<String, Object> args = new HashMap<String, Object>();
+args.put("x-max-length", 10); // 设置queue的最大长度10
+args.put("x-max-length-bytes", 1024); // 设置最大总字节数1KB
+channel.queueDeclare("myqueue", false, false, false, args);
+
+```
